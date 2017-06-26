@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         //  Create and/or open a database to read from it
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
-        /** Call of the read methor */
+        /** Call of the read method */
         Cursor cursor = mDbHelper.readAllHabits(db);
 
         // Call helper method to display information onscreen
