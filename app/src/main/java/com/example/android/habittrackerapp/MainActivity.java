@@ -37,36 +37,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        //  Create and/or open a database to read from it
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
         /** Call of the read methor */
-        displayDatabaseInfo();
+        Cursor cursor = mDbHelper.readAllHabits(db);
+
+        // Call helper method to display information onscreen
+        displayDatabaseInfo(cursor);
     }
 
     /**
-     * Method to display information in the onscreen TextView about the state of
+     * Helper method to display information in the onscreen TextView about the state of
      * the drinks database.
      */
-    private void displayDatabaseInfo() {
-        // Create and/or open a database to read from it
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
-
-        // Define a projection that specifies which columns from the database
-        // you will actually use after this query.
-        String[] projection = {
-                HabitEntry._ID,
-                HabitEntry.COLUMN_DRINK_NAME,
-                HabitEntry.COLUMN_DRINK_CATEGORY,
-                HabitEntry.COLUMN_DRINK_QUANTITY,
-                HabitEntry.COLUMN_DRINK_CALORIES};
-
-        // Perform a query on the pets table
-        Cursor cursor = db.query(
-                HabitEntry.TABLE_NAME,   // The table to query
-                projection,            // The columns to return
-                null,                  // The columns for the WHERE clause
-                null,                  // The values for the WHERE clause
-                null,                  // Don't group the rows
-                null,                  // Don't filter by row groups
-                null);                   // The sort order
+    private void displayDatabaseInfo(Cursor cursor) {
 
         TextView displayView = (TextView) findViewById(R.id.text_view_drink);
 

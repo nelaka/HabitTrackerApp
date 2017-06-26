@@ -24,12 +24,6 @@ public final class HabitContract {
         public static final String TABLE_NAME = "drinks";
 
         /**
-         * Unique ID number for the drink (only for use in the database table).
-         * Type: INTEGER
-         */
-        public static final String _ID = BaseColumns._ID;
-
-        /**
          * Name of the drink.
          * Type: TEXT
          */

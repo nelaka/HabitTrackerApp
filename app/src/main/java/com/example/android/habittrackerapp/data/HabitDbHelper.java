@@ -1,6 +1,7 @@
 package com.example.android.habittrackerapp.data;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -25,6 +26,7 @@ public class HabitDbHelper extends SQLiteOpenHelper {
 
     /**
      * Constructs a new instance of {@link HabitDbHelper}.
+     *
      * @param context of the app
      */
     public HabitDbHelper(Context context) {
@@ -47,6 +49,31 @@ public class HabitDbHelper extends SQLiteOpenHelper {
 
         // Execute the SQL statement
         db.execSQL(SQL_CREATE_DRINKS_TABLE);
+    }
+
+    /**
+     * Method to read all the information from the database
+     */
+    public Cursor readAllHabits(SQLiteDatabase db) {
+
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = {
+                HabitEntry._ID,
+                HabitEntry.COLUMN_DRINK_NAME,
+                HabitEntry.COLUMN_DRINK_CATEGORY,
+                HabitEntry.COLUMN_DRINK_QUANTITY,
+                HabitEntry.COLUMN_DRINK_CALORIES};
+
+        // Perform a query on the pets table
+        return db.query(
+                HabitEntry.TABLE_NAME,   // The table to query
+                projection,            // The columns to return
+                null,                  // The columns for the WHERE clause
+                null,                  // The values for the WHERE clause
+                null,                  // Don't group the rows
+                null,                  // Don't filter by row groups
+                null);                   // The sort order
     }
 
     /**
